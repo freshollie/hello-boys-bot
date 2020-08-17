@@ -1,5 +1,7 @@
 # hello-boys-bot
 
+[![Pipeline status](https://github.com/freshollie/hello-boys-bot/workflows/pipeline/badge.svg)](https://github.com/freshollie/hello-boys-bot/actions)
+
 > Greedy landlords don't deserve tenants
 
 ## About
