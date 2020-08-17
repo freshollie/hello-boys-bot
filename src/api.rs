@@ -64,7 +64,7 @@ mod tests {
 
     #[tokio::test]
     async fn test_listing_let_agreed() {
-        let (address, mock, server) = mock_response("let_agreed.html").await.unwrap();
+        let (address, mock, server) = mock_response("let_agreed").await.unwrap();
         mock.create_on(&server);
 
         let listing = listing_details(&address).await.unwrap();
@@ -74,7 +74,7 @@ mod tests {
 
     #[tokio::test]
     async fn test_listing_let_not_agreed() {
-        let (address, mock, server) = mock_response("no_let_agreed.html").await.unwrap();
+        let (address, mock, server) = mock_response("no_let_agreed").await.unwrap();
         mock.create_on(&server);
         let listing = listing_details(&address).await.unwrap();
 
