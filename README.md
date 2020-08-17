@@ -1,3 +1,5 @@
+<img align="right" src="assets/peppa.png" height="200px" style="transform: scaleX(-1);">
+
 # hello-boys-bot
 
 [![Pipeline status](https://github.com/freshollie/hello-boys-bot/workflows/pipeline/badge.svg)](https://github.com/freshollie/hello-boys-bot/actions)

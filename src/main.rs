@@ -11,6 +11,8 @@ use tokio::{spawn, time};
 use unindent::unindent;
 
 use std::env;
+extern crate base64;
+use rust_embed::RustEmbed;
 
 #[macro_use]
 extern crate lazy_static;
@@ -18,6 +20,10 @@ extern crate lazy_static;
 const DEPOSIT: i16 = 3075;
 const RENT_PM: i16 = 2665;
 const TENANCY_DURATION: i16 = 365;
+
+#[derive(RustEmbed)]
+#[folder = "assets/"]
+struct Asset;
 
 lazy_static! {
     static ref END_DATE: DateTime<FixedOffset> =
@@ -36,17 +42,30 @@ fn create_message(listing: ListingDetails, days_lost: i16) -> String {
             "
             From: HELLO BOYS ITS PEPPA <helloboysitspeppa@gmail.com>
             Subject: {} day(s) of no one living in 52 Castletown road
+            Content-Type: text/html; charset='utf-8'
+            Content-Transfer-Encoding: quoted-printable
+            Content-Disposition: inline
 
-            Dear all,
+            <!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN'>
+            <html>
+                <head>
 
-            52 Castletown road is still on the market, meaning so far as least £{} of lost income for Peppa.
+                <meta http-equiv='content-type' content='text/html; charset=ISO-8859-15'>
+                </head>
+                <body>
+                    <p>Dear all,</p>
 
-            - {}
-            - {}
+                    <p>52 Castletown road is still on the market, meaning so far as least £{} of lost income for Peppa.</p>
 
-            The property is currently being listed at £{} PM
+                    <p>- {}</p>
+                    <p>- {}</p>
 
-            Enjoy your day!
+                    <p>The property is currently being listed at £{} PM</p>
+                    
+                    <p>Enjoy your day!</p>
+                    <img src='data:image/png;base64,{}' alt='pepppppaaaaaa'>
+                </body>
+            </html>
             ",
             days_lost,
             round::floor(rent_pd * days_lost as f64, 0),
@@ -67,7 +86,8 @@ fn create_message(listing: ListingDetails, days_lost: i16) -> String {
                     ((days_lost as f32 / TENANCY_DURATION as f32) * 100 as f32) as i8
                 ),
             },
-            listing.price_pm
+            listing.price_pm,
+            base64::encode(Asset::get("peppa.png").unwrap().as_ref())
         )
     )
 }
