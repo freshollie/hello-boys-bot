@@ -1,4 +1,4 @@
-name: Publish Image
+name: pipeline
 
 on:
   push:
@@ -9,7 +9,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - run: apt-get update && apt-get install build-essential pkg-config libssl-dev -y
+      - run: sudo apt-get update && sudo apt-get install build-essential pkg-config libssl-dev -y
       - uses: actions/checkout@v2
       - uses: actions-rs/toolchain@v1
         with:
