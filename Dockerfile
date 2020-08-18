@@ -10,7 +10,7 @@ COPY assets assets
 COPY src src
 RUN cargo install --target x86_64-unknown-linux-musl --path .
 
-FROM scratch
+FROM alpine:3.12.0
 
 WORKDIR /hello-boys
 COPY --from=builder /root/.cargo/bin/hello-boys .
